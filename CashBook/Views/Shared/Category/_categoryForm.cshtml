@@ -1,0 +1,144 @@
+﻿@model DataAccessLayer.Entities.Category
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title" id="title-category">Add Category</h4>
+        <form class="forms-sample" id="CRUD-Category">
+
+            <div class="form-group">
+                @Html.LabelFor(m =>m.Name, "Name *")                
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" , id = "name-category", placeholder="Name"} })
+                <span id="name-error-category" class="text-danger"></span>
+            </div>
+
+            <div class="form-group ">
+                @Html.LabelFor(m =>m.Type, "Transaction Type")
+                <div class="form-group row"> 
+                    <div class="col-sm-6">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="type" value="Expense" @Html.Raw(Model.Type == null || Model.Type == ""|| Model.Type == "Expense" ? "checked" : "")>
+                                Expense
+                                <i class="input-helper"></i>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="type" value="Income" @Html.Raw(Model.Type == "Income" ? "checked" : "")>
+                                Income
+                                <i class="input-helper"></i>
+                            </label>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+            <div class="form-group ">
+                <label for="isDelete-category">Status</label>
+                @Html.DropDownListFor(model => model.IsDelete, new SelectList(ViewBag.Options, "Value", "Text"), htmlAttributes: new { @class = "form-control" , id="isDelete-category"})
+            </div>
+            <div class="form-group ">
+                <button type="button" id="add-button-category" class="btn btn-primary mr-4">Add</button>
+                <button type="button" id="update-button-category" class="btn btn-primary mr-4">Update</button>
+                <button type="button" id="cancel" onclick="hideDiv()" class="btn btn-light">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    //Create Category
+    document.getElementById("add-button-category").addEventListener("click", function () {
+        // Create the model object with the required properties
+        var nameInputCategory = document.getElementById("name-category");
+        var nameError = document.getElementById('name-error-category');
+        var selectedValue = document.querySelector('input[name="type"]:checked').value;
+        var isDeleteInput = document.getElementById("isDelete-category");
+        if (!validateName(nameInputCategory, nameError)) {
+            showToastDanger("Please check the field validation");
+            event.preventDefault();
+            // Prevent form submission if validation fails
+        }
+        else {
+            var modelData = {
+                name: nameInputCategory.value,
+                type: selectedValue,
+                isDelete: JSON.parse(isDeleteInput.value)
+            };
+            // Send the model data as JSON in the fetch request
+            fetch("/Category/Create", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+                },
+                body: JSON.stringify(modelData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Process the response from the controller
+                    if (data.success === true) {
+                        showToastSuccess(data.message);
+                        resetForm();                        
+                        // Outputs "Model received successfully!"
+                    }
+                    else {
+                        showToastWarning(data.message);
+                    }
+
+                })
+                .catch(error => {
+                    // Handle error if the fetch request fails
+                    console.error(error);
+                });
+        }
+
+    });
+    //Update Category
+    document.getElementById("update-button-category").addEventListener("click", function () {
+        // Create the model object with the required properties
+        var nameInputCategory = document.getElementById("name-category");
+        var nameError = document.getElementById('name-error-category');
+        var selectedValue = document.querySelector('input[name="type"]:checked').value;
+        var isDeleteInput = document.getElementById("isDelete-category");
+
+        if (!validateName(nameInputCategory, nameError)) {
+            showToastDanger("Please check the field validation");
+            event.preventDefault();
+            // Prevent form submission if validation fails
+        }
+        else {
+            var modelData = {
+                id: modelIdCategory,
+                name: nameInputCategory.value,
+                type: selectedValue,
+                isDelete: JSON.parse(isDeleteInput.value)
+            };
+            // Send the model data as JSON in the fetch request
+            fetch("/Category/Update", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+                },
+                body: JSON.stringify(modelData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Process the response from the controller
+                    if (data.success === true) {
+                        showToastSuccess(data.message);
+                        // Outputs "Model updated successfully!"
+                    }
+                    else {
+                        showToastWarning(data.message);
+                    }
+
+                })
+                .catch(error => {
+                    // Handle error if the fetch request fails
+                    console.error(error);
+                });
+        }
+
+    });
+</script>

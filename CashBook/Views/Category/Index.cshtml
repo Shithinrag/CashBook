@@ -1,0 +1,95 @@
+﻿@model IEnumerable<DataAccessLayer.Entities.Category>
+@{
+    ViewData["Title"] = "Main Page";
+    Layout = "~/Views/Shared/_navbar.cshtml";
+}
+<div>
+    @await Html.PartialAsync("_sidebar")
+</div>
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="col-lg-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Category List</h4>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>                                    
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Type)
+                                        </td>                                        
+                                        <td>
+                                            @if (item.IsDelete == true)
+                                            {
+                                                <label id="statusLabel-category-@item.Id" class="badge badge-danger" onclick="ChangeStatusCategory(@item.Id)">Inactive</label>
+                                            }
+                                            else
+                                            {
+                                                <label id="statusLabel-category-@item.Id" class="badge badge-success" onclick="ChangeStatusCategory(@item.Id)">Active</label>
+                                            }
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-link" style="padding: 0px 0 !important; color:#4c4d4f" onclick="EditCategory(@item.Id)"><i class="mdi mdi-border-color"></i></button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    @Html.Partial("_settingPanel",new DataAccessLayer.Entities.Payment())
+</div>
+
+<script>
+    function ChangeStatusCategory(id) {
+        // Get the label element by ID
+        const statusLabel = document.getElementById(`statusLabel-category-${id}`);
+
+        // Update the class and innerHTML based on the new status
+        if (statusLabel.innerHTML === "Active") {
+            statusLabel.className = "badge badge-danger";
+            statusLabel.innerHTML = "Inactive";
+        } else {
+            statusLabel.className = "badge badge-success";
+            statusLabel.innerHTML = "Active";
+        }
+        fetch(`/Category/ToggleStatus/${id}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json; charset=utf-8"
+            }
+        });
+    }
+    
+    function EditCategory(id) {
+        if (!$("#right-sidebar").hasClass("open")) {
+            // If it doesn't have the class "open", toggle it to add the class
+            $("#right-sidebar").toggleClass("open");
+        }
+        $("#chats-tab").click();
+        UpdateCategoryButtonClick(id);        
+    }
+
+</script>

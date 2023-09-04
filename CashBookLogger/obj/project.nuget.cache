@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "YOOnPtkHgzo1mmBh4lEHoGR/flcKdrwQTXzGUWIQwUrltiU7KXl7IAMHzZcrJkyVG2eMvHnyxEeQletkKZUpRA==",
+  "success": true,
+  "projectFilePath": "F:\\Shithin_Files\\CashBook\\CashBookLogger\\Logger.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\rboffice\\.nuget\\packages\\serilog\\2.12.0\\serilog.2.12.0.nupkg.sha512",
+    "C:\\Users\\rboffice\\.nuget\\packages\\serilog.sinks.file\\5.0.0\\serilog.sinks.file.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

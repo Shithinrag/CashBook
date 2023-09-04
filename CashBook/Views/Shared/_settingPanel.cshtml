@@ -1,0 +1,320 @@
+﻿<!-- partial:partials/_settings-panel.html -->
+<div class="theme-setting-wrapper">
+    <div id="settings-trigger"><i class="ti-settings"></i></div>
+    <div id="theme-settings" class="settings-panel">
+        <i class="settings-close ti-close"></i>
+        <p class="settings-heading">SIDEBAR SKINS</p>
+        <div class="sidebar-bg-options selected" id="sidebar-light-theme"><div class="img-ss rounded-circle bg-light border mr-3"></div>Light</div>
+        <div class="sidebar-bg-options" id="sidebar-dark-theme"><div class="img-ss rounded-circle bg-dark border mr-3"></div>Dark</div>
+        <p class="settings-heading mt-2">HEADER SKINS</p>
+        <div class="color-tiles mx-0 px-4">
+            <div class="tiles success"></div>
+            <div class="tiles warning"></div>
+            <div class="tiles danger"></div>
+            <div class="tiles info"></div>
+            <div class="tiles dark"></div>
+            <div class="tiles default"></div>
+        </div>
+    </div>
+</div>
+
+<div id="right-sidebar" class="settings-panel">
+    <i class="settings-close ti-close"></i>
+    <ul class="nav nav-tabs border-top" id="setting-panel" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="chats-tab" data-toggle="tab" href="#chats-section" role="tab" aria-controls="chats-section" aria-expanded="true">MASTER DATA</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " id="todo-tab" data-toggle="tab" href="#todo-section" role="tab" aria-controls="todo-section" >TO DO LIST</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="setting-content" style="padding: 0px 0 !important;">
+        <div class="tab-pane fade" id="todo-section" role="tabpanel" aria-labelledby="todo-section">
+            <div class="add-items d-flex px-3 mb-0">
+                <form class="form w-100">
+                    <div class="form-group d-flex">
+                        <input type="text" class="form-control todo-list-input" placeholder="Add To-do">
+                        <button type="submit" class="add btn btn-primary todo-list-add-btn" id="add-task">Add</button>
+                    </div>
+                </form>
+            </div>
+            <div class="list-wrapper px-3">
+                <ul class="d-flex flex-column-reverse todo-list">
+                    <li>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="checkbox" type="checkbox">
+                                Team review meeting at 3.00 PM
+                            </label>
+                        </div>
+                        <i class="remove ti-close"></i>
+                    </li>
+                    <li>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="checkbox" type="checkbox">
+                                Prepare for presentation
+                            </label>
+                        </div>
+                        <i class="remove ti-close"></i>
+                    </li>
+                    <li>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="checkbox" type="checkbox">
+                                Resolve all the low priority tickets due today
+                            </label>
+                        </div>
+                        <i class="remove ti-close"></i>
+                    </li>
+                    <li class="completed">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="checkbox" type="checkbox" checked>
+                                Schedule meeting for next week
+                            </label>
+                        </div>
+                        <i class="remove ti-close"></i>
+                    </li>
+                    <li class="completed">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="checkbox" type="checkbox" checked>
+                                Project review
+                            </label>
+                        </div>
+                        <i class="remove ti-close"></i>
+                    </li>
+                </ul>
+            </div>
+            <h4 class="px-3 text-muted mt-5 font-weight-light mb-0">Events</h4>
+            <div class="events pt-4 px-3">
+                <div class="wrapper d-flex mb-2">
+                    <i class="ti-control-record text-primary mr-2"></i>
+                    <span>Feb 11 2018</span>
+                </div>
+                <p class="mb-0 font-weight-thin text-gray">Creating component page build a js</p>
+                <p class="text-gray mb-0">The total number of sessions</p>
+            </div>
+            <div class="events pt-4 px-3">
+                <div class="wrapper d-flex mb-2">
+                    <i class="ti-control-record text-primary mr-2"></i>
+                    <span>Feb 7 2018</span>
+                </div>
+                <p class="mb-0 font-weight-thin text-gray">Meeting with Alisa</p>
+                <p class="text-gray mb-0 ">Call Sarah Graves</p>
+            </div>
+        </div>
+        <!-- To do section tab ends -->
+        <div class="tab-pane fade show active scroll-wrapper" id="chats-section" role="tabpanel" aria-labelledby="chats-section">
+            <div class="d-flex align-items-center justify-content-between border-bottom">
+                <button type="button" class="btn btn-link btn-fw" onclick="goToPaymentIndex()">
+                    <small class="settings-heading border-top-0 mb-3 pt-0 border-bottom-0 pb-0 pr-3 font-weight-normal" style="padding: 0px 0 !important;">
+                        Payment List
+                    </small>
+                </button>
+
+                <button type="button" id="add-payment" class="btn btn-link btn-fw font-weight-normal" onclick="AddPaymentButtonClick()">Add</button>
+            </div>
+            <div class="d-flex align-items-center justify-content-between border-bottom padding-top">
+                <button type="button" class="btn btn-link btn-fw" onclick="goToCategoryIndex()">
+                    <small class="settings-heading border-top-0 mb-3 pt-0 border-bottom-0 pb-0 pr-3 font-weight-normal" style="padding: 0px 0 !important;">
+                        Category List
+                    </small>
+                </button>
+                <button type="button" id="add-category" class="btn btn-link btn-fw font-weight-normal" onclick="AddCategoryButtonClick()">Add</button>
+            </div>
+
+            <div id="add-update-PaymentDiv">@await Html.PartialAsync("Payment/_paymentForm")</div>
+            <div id="add-update-CategoryDiv">@await Html.PartialAsync("Category/_categoryForm", new DataAccessLayer.Entities.Category())</div>
+
+
+            @*<ul class="chat-list">
+            <li class="list active">
+            <div class="profile"><img src="images/faces/face1.jpg" alt="image"><span class="online"></span></div>
+            <div class="info">
+            <p>Thomas Douglas</p>
+            <p>Available</p>
+            </div>
+            <small class="text-muted my-auto">19 min</small>
+            </li>
+            <li class="list">
+            <div class="profile"><img src="images/faces/face2.jpg" alt="image"><span class="offline"></span></div>
+            <div class="info">
+            <div class="wrapper d-flex">
+            <p>Catherine</p>
+            </div>
+            <p>Away</p>
+            </div>
+            <div class="badge badge-success badge-pill my-auto mx-2">4</div>
+            <small class="text-muted my-auto">23 min</small>
+            </li>
+            <li class="list">
+            <div class="profile"><img src="images/faces/face3.jpg" alt="image"><span class="online"></span></div>
+            <div class="info">
+            <p>Daniel Russell</p>
+            <p>Available</p>
+            </div>
+            <small class="text-muted my-auto">14 min</small>
+            </li>
+            <li class="list">
+            <div class="profile"><img src="images/faces/face4.jpg" alt="image"><span class="offline"></span></div>
+            <div class="info">
+            <p>James Richardson</p>
+            <p>Away</p>
+            </div>
+            <small class="text-muted my-auto">2 min</small>
+            </li>
+            <li class="list">
+            <div class="profile"><img src="images/faces/face5.jpg" alt="image"><span class="online"></span></div>
+            <div class="info">
+            <p>Madeline Kennedy</p>
+            <p>Available</p>
+            </div>
+            <small class="text-muted my-auto">5 min</small>
+            </li>
+            <li class="list">
+            <div class="profile"><img src="images/faces/face6.jpg" alt="image"><span class="online"></span></div>
+            <div class="info">
+            <p>Sarah Graves</p>
+            <p>Available</p>
+            </div>
+            <small class="text-muted my-auto">47 min</small>
+            </li>
+            </ul>*@
+        </div>
+        <!-- chat tab ends -->
+    </div>
+</div>
+
+<script>
+    // Define a variable to store the ID used for update
+    var modelId;
+    var modelIdCategory;
+    window.onload = function () {
+        $("#add-update-PaymentDiv").hide();
+        $("#add-update-CategoryDiv").hide();       
+    }
+    function hideDiv() {
+        $("#add-update-PaymentDiv").hide();
+        $("#add-update-CategoryDiv").hide();
+    }
+    function AddPaymentButtonClick() {
+        resetForm();
+        document.getElementById("title-payment").innerHTML = "Add Payment Method";
+        $("#update-button-payment").hide();
+        $("#add-button-payment").show();
+        $("#add-update-CategoryDiv").hide();
+        $("#add-update-PaymentDiv").show();
+    }
+    function UpdatePaymentButtonClick(id) {
+        document.getElementById("title-payment").innerHTML = "Update Payment Method";
+        $("#add-button-payment").hide();
+        $("#update-button-payment").show();
+        $("#add-update-CategoryDiv").hide();
+        $("#add-update-PaymentDiv").show();        
+        GetDatabyId(id);
+    }
+    function AddCategoryButtonClick() {
+        resetForm();
+        document.getElementById("title-category").innerHTML = "Add Category";
+        $("#update-button-category").hide();
+        $("#add-button-category").show();
+        $("#add-update-PaymentDiv").hide();
+        $("#add-update-CategoryDiv").show();
+    }
+    function UpdateCategoryButtonClick(id) {
+        document.getElementById("title-category").innerHTML = "Update Category";
+        $("#add-button-category").hide();
+        $("#update-button-category").show();
+        $("#add-update-PaymentDiv").hide();
+        $("#add-update-CategoryDiv").show();
+        GetDatabyCategoryId(id);
+
+    }
+
+    function GetDatabyId(id) {
+        // Send the id to GET controller to fetch data
+        fetch(`/Payment/Update?id=${id}`, {
+            method: "Get",
+            headers: {
+                "Content-Type": "application/json; charset=utf-8"
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Process the response from the controller
+                modelId = data.id;
+                document.getElementById('name').value = data.name;
+                document.getElementById('openingBalance').value = parseFloat(data.openingBalance);
+                document.getElementById('isPerson').checked = data.isPerson === true;
+                document.getElementById('isDelete').value = data.isDelete === true;
+                // Outputs "Model received successfully!"
+            })
+            .catch(error => {
+                // Handle error if the fetch request fails
+                console.error(error);
+            });
+    }
+    function GetDatabyCategoryId(id) {
+        // Send the id to GET controller to fetch data
+        fetch(`/Category/Update?id=${id}`, {
+            method: "Get",
+            headers: {
+                "Content-Type": "application/json; charset=utf-8"
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Process the response from the controller
+                modelIdCategory = data.id;
+                document.getElementById('name-category').value = data.name;                
+                document.querySelector(`input[name="type"][value="${data.type}"]`).checked = true;
+                document.getElementById('isDelete-category').value = data.isDelete === true;
+
+                // Outputs "Model received successfully!"
+            })
+            .catch(error => {
+                // Handle error if the fetch request fails
+                console.error(error);
+            });
+    }
+
+    function goToPaymentIndex() {
+        fetch("/Payment/Index") // Replace with your server route that returns "_Partial1.cshtml" content
+            .then(response => response.text())
+            .then(htmlContent => {
+                document.getElementById("root").innerHTML = htmlContent;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+    }
+    function goToPaymentIndex2() {
+        fetch("/Payment/GetDemoPartialView") // Replace with your server route that returns "_Partial1.cshtml" content
+            .then(response => response.text())
+            .then(htmlContent => {
+                document.getElementById("root").innerHTML = htmlContent;
+                const scriptTags = document.getElementById("root").querySelectorAll("script");
+                scriptTags.forEach(script => {
+                    eval(script.textContent); // Execute the JavaScript content
+                });
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+    }
+    function goToCategoryIndex() {
+        fetch("/Category/Index") // Replace with your server route that returns "_Partial1.cshtml" content
+            .then(response => response.text())
+            .then(htmlContent => {
+                document.getElementById("root").innerHTML = htmlContent;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+
+</script>

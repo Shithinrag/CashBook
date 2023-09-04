@@ -1,0 +1,219 @@
+﻿@model CashBook.ViewModels.TransactionViewModel
+@{
+    ViewData["Title"] = "Transaction Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="content-wrapper">
+        <div class="row">
+            <div class="col-lg-6 grid-margin stretch-card" id="main">
+
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">All Transactions</h4>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="expense-tab" data-bs-toggle="tab" href="#expense-1" role="tab" aria-controls="expense-1" aria-selected="true">Expense</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="income-tab" data-bs-toggle="tab" href="#income-1" role="tab" aria-controls="income-1" aria-selected="false">Income</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="contra-tab" data-bs-toggle="tab" href="#contra-1" role="tab" aria-controls="contra-1" aria-selected="false">Contra</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade active show" id="expense-1" role="tabpanel" aria-labelledby="expense-tab">
+                            @await Component.InvokeAsync("GetAllTransaction", new{type = "Expense"})
+                        </div>
+                        <div class="tab-pane fade" id="income-1" role="tabpanel" aria-labelledby="income-tab">
+                            @await Component.InvokeAsync("GetAllTransaction", new{type = "Income"})
+                        </div>
+                        <div class="tab-pane fade" id="contra-1" role="tabpanel" aria-labelledby="contra-tab">
+                            @await Component.InvokeAsync("GetAllTransaction", new{type = "Contra"})
+                        </div>
+                    </div>
+                </div>
+            </div>
+                            
+            </div>
+            <div class="col-lg-6 grid-margin" id="root">
+                <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Add Transaction</h4>
+                   <form id="add-transaction" action="/Transaction/Create" method="post">
+                    @*@using (Html.BeginForm("Create", "Transaction", FormMethod.Post, new { enctype = "multipart/form-data"  }))*@                    
+                        <div class="forms-sample">
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label for="date1">Date</label>
+                                    <div class='input-group date' id='date'>
+                                        <input type="text" class="form-control datepicker" id="date1" name="date" placeholder="">                                       
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>                                        
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-8">
+                                    <label for="discription-trancsaction">Discription</label>
+                                    @Html.EditorFor(model=>model.Description, new { htmlAttributes = new { @class = "form-control" , id="discription-trancsaction", placeholder="Discription"} })
+                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="type-transaction">Transaction Type</label>
+                                    @Html.DropDownListFor(model => model.Type, new SelectList(ViewBag.Type, "Value", "Text"), htmlAttributes: new { @class = "form-control" , id="type-transaction"})
+                                </div>
+
+                                <div class="form-group col-md-6 categoryId-expense-transaction">
+                                    <label for="">Category</label>
+                                    @Html.DropDownListFor(model => model.CategoryIdExpense, new SelectList(ViewBag.ExpenseCategories, "Value", "Text"), htmlAttributes: new { @class = "form-control" })
+                                </div>
+                                <div class="form-group col-md-6 categoryId-income-transaction">
+                                    <label for="">Category</label>
+                                    @Html.DropDownListFor(model => model.CategoryIdIncome, new SelectList(ViewBag.IncomeCategories, "Value", "Text"), htmlAttributes: new { @class = "form-control"})
+                                </div>
+
+                                <div class="form-group col-md-6 nonContra">
+                                    <label for="paymentfromid-1-transaction">Payment</label>
+                                    @Html.DropDownListFor(model => model.PaymentFromIdSingle, new SelectList(ViewBag.PaymentList, "Value", "Text"), htmlAttributes: new { @class = "form-control" , id="paymentfromid-1-transaction"})
+                                </div>
+
+
+                                <div class="form-group col-md-6 ">
+                                    <label for="amount-transaction">Amount</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-primary text-white">&#8377;</span>
+                                        </div>
+                                        @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" , id="amount-transaction", placeholder="Amount"} })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <!---Contra-Starts-->
+                            <div class="row">
+                                <div class="form-group col-md-6 contraPaymetOption">
+                                    <label for="paymentfromid-2-transaction">Payment From</label>
+                                    @Html.DropDownListFor(model => model.PaymentFromIdContra, new SelectList(ViewBag.PaymentList, "Value", "Text"), htmlAttributes: new { @class = "form-control" , id="paymentfromid-2-transaction"})
+                                </div>
+
+
+                                <div class="form-group col-md-6 contraPaymetOption">
+                                    <label for="paymenttoid-1-transaction">Payment To</label>
+                                    @Html.DropDownListFor(model => model.PaymentToId, new SelectList(ViewBag.PaymentList, "Value", "Text"), htmlAttributes: new { @class = "form-control" , id="paymenttoid-1-transaction"})
+                                </div>
+                            </div>
+                            <!---Contra-Ends-->
+
+                            <button type="submit" id="save-button" class="btn btn-primary mr-2" onclick="javascript:return ValidateContra()" />Save
+                            <button type="button" class="btn btn-light" onclick="ResetForm();">Cancel</button>
+                        </div>                    
+                    </form>
+                </div>
+            </div>
+            </div>
+        </div>
+</div>
+
+<script>
+   
+    $('.contraPaymetOption').hide();
+    $('.categoryId-income-transaction').hide();
+    $('.datepicker').datepicker({
+        format: 'dd-mm-yyyy',
+        endDate: new Date(),   // Set the maximum allowed date
+        autoclose: true,
+        orientation: 'bottom'
+    });
+    @*Datepicker set to todays date*@
+    $('.datepicker').datepicker('setDate', 'now');
+
+    $('#type-transaction').on('change', function () {
+    switch(this.value){
+            case "Contra":
+                $('.nonContra').hide();
+                $('.categoryId-expense-transaction').hide();
+                $('.categoryId-income-transaction').hide();
+                $('.contraPaymetOption').show();
+                break;
+            case "Income":
+                $('.nonContra').show();
+                $('.contraPaymetOption').hide();
+                $('.categoryId-expense-transaction').hide();
+                $('.categoryId-income-transaction').show();
+                break;
+            case "Expense":
+                $('.nonContra').show();
+                $('.contraPaymetOption').hide();
+                $('.categoryId-income-transaction').hide();
+                $('.categoryId-expense-transaction').show();
+    }
+    });
+
+    function ResetForm() {        
+        document.getElementById('discription-trancsaction').value = "";
+        document.getElementById('amount-transaction').value = "";  
+    }
+    //Validation for Contra entry for Add/Update Transaction
+    function ValidateContra() {
+        if (document.getElementById("type-transaction").value === "Contra") {
+            if (document.getElementById("paymentfromid-2-transaction").value === document.getElementById("paymenttoid-1-transaction").value){
+                showToastDanger("Payment From and To should not be same");                
+                return false;
+            }
+            return true;
+        }
+        return true; // Return false if the value is not "Contra"
+    }   
+
+
+
+    function EditTransaction(id) {
+        if (!$("#right-sidebar").hasClass("open")) {
+            // If it doesn't have the class "open", toggle it to add the class
+            $("#right-sidebar").toggleClass("open");
+        }
+        $("#chats-tab").click();
+    }
+    function GetTransactionDetails(id) {
+        // Send the id to GET controller to fetch data
+        fetch(`/Transaction/Details?id=${id}`, {
+            method: "Get",
+            headers: {
+                "Content-Type": "application/json; charset=utf-8"
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Process the response from the controller
+                //modelId = data.id;
+                    
+                    //CategoryIdExpense = allTransactions.CategoryId,
+                    //CategoryNameExpense = allTransactions.CategoryName,
+                    //PaymentFromIdSingle = allTransactions.PaymentFromId,
+                    //PaymentFromNameSingle = allTransactions.PaymentFromName,
+                    //PaymentToId = allTransactions.PaymentToId,
+                    //PaymentToName = allTransactions.PaymentToName,
+                    //Type = allTransactions.Type
+                document.getElementById('date1').value = data.date;                
+                document.getElementById('amount-transaction').value = data.amount;
+                document.getElementById('discription-trancsaction').value = data.description;
+                document.getElementById('type-transaction').value = data.type;
+                if(data.categotyid)
+                    document.getElementById('type-transaction').value = data.type;
+
+                debugger;
+                //document.getElementById('openingBalance').value = parseFloat(data.openingBalance);
+               // document.getElementById('isPerson').checked = data.isPerson === true;
+               // document.getElementById('isDelete').value = data.isDelete === true;
+                // Outputs "Model received successfully!"
+            })
+            .catch(error => {
+                // Handle error if the fetch request fails
+                console.error(error);
+            });
+    }
+</script>
+

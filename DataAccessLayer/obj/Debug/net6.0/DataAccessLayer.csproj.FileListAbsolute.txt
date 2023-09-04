@@ -1,0 +1,17 @@
+F:\Shithin_Files\CashBook\DataAccessLayer\bin\Debug\net6.0\DataAccessLayer.deps.json
+F:\Shithin_Files\CashBook\DataAccessLayer\bin\Debug\net6.0\DataAccessLayer.runtimeconfig.json
+F:\Shithin_Files\CashBook\DataAccessLayer\bin\Debug\net6.0\DataAccessLayer.dll
+F:\Shithin_Files\CashBook\DataAccessLayer\bin\Debug\net6.0\DataAccessLayer.pdb
+F:\Shithin_Files\CashBook\DataAccessLayer\bin\Debug\net6.0\Logger.dll
+F:\Shithin_Files\CashBook\DataAccessLayer\bin\Debug\net6.0\Logger.pdb
+F:\Shithin_Files\CashBook\DataAccessLayer\obj\Debug\net6.0\DataAccessLayer.csproj.AssemblyReference.cache
+F:\Shithin_Files\CashBook\DataAccessLayer\obj\Debug\net6.0\DataAccessLayer.GeneratedMSBuildEditorConfig.editorconfig
+F:\Shithin_Files\CashBook\DataAccessLayer\obj\Debug\net6.0\DataAccessLayer.AssemblyInfoInputs.cache
+F:\Shithin_Files\CashBook\DataAccessLayer\obj\Debug\net6.0\DataAccessLayer.AssemblyInfo.cs
+F:\Shithin_Files\CashBook\DataAccessLayer\obj\Debug\net6.0\DataAccessLayer.csproj.CoreCompileInputs.cache
+F:\Shithin_Files\CashBook\DataAccessLayer\obj\Debug\net6.0\DataAccessLayer.csproj.CopyComplete
+F:\Shithin_Files\CashBook\DataAccessLayer\obj\Debug\net6.0\DataAccessLayer.dll
+F:\Shithin_Files\CashBook\DataAccessLayer\obj\Debug\net6.0\refint\DataAccessLayer.dll
+F:\Shithin_Files\CashBook\DataAccessLayer\obj\Debug\net6.0\DataAccessLayer.pdb
+F:\Shithin_Files\CashBook\DataAccessLayer\obj\Debug\net6.0\DataAccessLayer.genruntimeconfig.cache
+F:\Shithin_Files\CashBook\DataAccessLayer\obj\Debug\net6.0\ref\DataAccessLayer.dll

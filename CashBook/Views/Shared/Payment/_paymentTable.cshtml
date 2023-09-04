@@ -1,0 +1,59 @@
+﻿@model IEnumerable<DataAccessLayer.Entities.Payment>
+<div class="card">
+    <div class="card-body">
+        <i class="settings-close ti-close"></i>
+        <h4 class="card-title">Payment List</h4>
+        
+        <div class="table-responsive">
+            <table class="table table-striped table-borderless table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Opening Balance</th>
+                        <th>Person</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td onclick="EditPayment(@item.Id)">
+                            <b>
+                                @Html.DisplayFor(modelItem => item.Name)
+                                </b>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.OpeningBalance)
+                            </td>
+                            <td>
+                                @if (item.IsPerson == true)
+                                {
+                                    <i class="text-success mdi mdi-check"></i>
+                                }
+                                else
+                                {
+                                    <i class="text-danger mdi mdi-close"></i>
+                                }
+                            </td>
+                            <td>
+                                @if (item.IsDelete == true)
+                                {
+                                    <label id="statusLabel-@item.Id" class="badge badge-danger" onclick="ChangeStatus(@item.Id)">Inactive</label>
+                                }
+                                else
+                                {
+                                    <label id="statusLabel-@item.Id" class="badge badge-success" style="cursor: pointer;" onclick=" ChangeStatus(@item.Id)">Active</label>
+                                }
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-link" style="padding: 0px 0 !important; cursor: pointer; color:#4c4d4f" onclick="EditPayment(@item.Id)"><i class="mdi mdi-border-color"></i></button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,187 @@
+﻿@model DataAccessLayer.Entities.Payment
+
+<div class="card" id="payment-div-card">
+    <div class="card-body">
+        <h4 class="card-title" id="title-payment">Add Payment method</h4>        
+            <form class="forms-sample" id="CRUD-Payment">                
+                <div class="form-group ">
+                    @Html.LabelFor(m =>m.Name, "Name *")
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" , id="name", placeholder="Name"} })
+                    <span id="name-error" class="text-danger"></span>
+                </div>
+
+                <div class="form-group ">
+                    @Html.LabelFor(m =>m.OpeningBalance, "Opening Balance")
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-primary text-white">&#8377;</span>
+                        </div>
+                        @Html.EditorFor(model => model.OpeningBalance, new { htmlAttributes = new { @class = "form-control" , id="openingBalance", placeholder="Amount"} })
+                    </div>
+                    <span id="openingBalance-error" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                        <label class="form-check-label">
+                        @Html.CheckBoxFor(model => model.IsPerson,  new { @class = "form-check-input",  id="isPerson"})
+                            Person
+                            <i class="input-helper"></i>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group ">
+                <label for="isDelete">Status</label>
+                @Html.DropDownListFor(model => model.IsDelete, new SelectList(ViewBag.Options, "Value", "Text"), htmlAttributes: new { @class = "form-control" , id="isDelete"})
+
+                </div>
+                <div class="form-group">
+                    <button type="button" id="add-button-payment" class="btn btn-primary mr-4">Add</button>
+                    <button type="button" id="update-button-payment" class="btn btn-primary mr-4">Update</button>
+                    <button type="button" id="cancel" onclick="hideDiv()" class="btn btn-light">Cancel</button>
+                </div>
+
+            </form>
+        
+    </div>
+</div>
+<script>
+    //Create Payment 
+    document.getElementById("add-button-payment").addEventListener("click", function () {
+        // Create the model object with the required properties
+        var nameInput = document.getElementById("name");
+        var nameError = document.getElementById('name-error');
+        var opBalanceInput = document.getElementById("openingBalance");
+        var isPersonInput = document.getElementById("isPerson");
+        var isDeleteInput = document.getElementById("isDelete"); 
+        if (!validateName(nameInput, nameError) || !validateAmount(opBalanceInput)) {
+            showToastDanger("Please check the field validation");
+            event.preventDefault();
+            // Prevent form submission if validation fails
+        }
+        else
+        {
+            var modelData = {
+                name: nameInput.value,
+                openingBalance: parseFloat(opBalanceInput.value),
+                isPerson: isPersonInput.checked,
+                isDelete: JSON.parse(isDeleteInput.value)
+            };
+            // Send the model data as JSON in the fetch request
+            fetch("/Payment/Create", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+                },
+                body: JSON.stringify(modelData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Process the response from the controller
+                    if(data.success === true){
+                        showToastSuccess(data.message);
+                        resetForm();                        
+                        // Outputs "Model received successfully!"
+                    }
+                    else{
+                    showToastWarning(data.message);                    
+                    }
+                     
+                })
+                .catch(error => {
+                    // Handle error if the fetch request fails
+                    console.error(error);
+                });
+        }  
+        
+        });
+    //Update Payment
+    document.getElementById("update-button-payment").addEventListener("click", function () {
+        // Create the model object with the required properties               
+        var nameInput = document.getElementById("name");
+        var nameError = document.getElementById('name-error');
+        var opBalanceInput = document.getElementById("openingBalance");
+        var isPersonInput = document.getElementById("isPerson");
+        var isDeleteInput = document.getElementById("isDelete");
+        
+        if (!validateName(nameInput, nameError) || !validateAmount(opBalanceInput)) {
+            showToastDanger("Please check the field validation");
+            event.preventDefault();
+            // Prevent form submission if validation fails
+        }
+        else {
+            var modelData = {
+                id: modelId,
+                name: nameInput.value,
+                openingBalance: parseFloat(opBalanceInput.value),
+                isPerson: isPersonInput.checked,
+                isDelete: JSON.parse(isDeleteInput.value)
+            };
+            // Send the model data as JSON in the fetch request
+            fetch("/Payment/Update", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+                },
+                body: JSON.stringify(modelData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Process the response from the controller
+                    if (data.success === true) {
+                        showToastSuccess(data.message);                        
+                        // Outputs "Model updated successfully!"
+                    }
+                    else {
+                        showToastWarning(data.message);
+                    }
+
+                })
+                .catch(error => {
+                    // Handle error if the fetch request fails
+                    console.error(error);
+                });
+        }
+
+    });
+    //Alert toggle
+    function showToastSuccess(message) {        
+        $.toast({
+            heading: 'Success',
+            text: message,
+            showHideTransition: 'slide',
+            icon: 'success',
+            timeout: 3000,
+            loaderBg: '#f96868',
+            position: 'top-center'
+        });
+    }
+    function showToastWarning(message) {
+        $.toast({
+            heading: 'Warning',
+            text: message,
+            showHideTransition: 'slide',
+            icon: 'warning',
+            timeout: 3000,
+            loaderBg: '#f96868',
+            position: 'top-center'
+        });
+    }
+    function showToastDanger(message) {
+        $.toast({
+            heading: 'Danger',
+            text: message,
+            showHideTransition: 'slide',
+            icon: 'error',
+            timeout: 3000,
+            loaderBg: '#f96868',
+            position: 'top-center'
+        });
+    }
+    //Form reset
+    function resetForm() {
+        document.getElementById("CRUD-Payment").reset();
+        document.getElementById("CRUD-Category").reset();
+    }
+    
+</script>

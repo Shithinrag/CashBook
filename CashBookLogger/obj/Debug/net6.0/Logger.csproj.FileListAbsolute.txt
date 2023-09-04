@@ -1,0 +1,12 @@
+F:\Shithin_Files\CashBook\CashBookLogger\bin\Debug\net6.0\Logger.deps.json
+F:\Shithin_Files\CashBook\CashBookLogger\bin\Debug\net6.0\Logger.dll
+F:\Shithin_Files\CashBook\CashBookLogger\bin\Debug\net6.0\Logger.pdb
+F:\Shithin_Files\CashBook\CashBookLogger\obj\Debug\net6.0\Logger.csproj.AssemblyReference.cache
+F:\Shithin_Files\CashBook\CashBookLogger\obj\Debug\net6.0\Logger.GeneratedMSBuildEditorConfig.editorconfig
+F:\Shithin_Files\CashBook\CashBookLogger\obj\Debug\net6.0\Logger.AssemblyInfoInputs.cache
+F:\Shithin_Files\CashBook\CashBookLogger\obj\Debug\net6.0\Logger.AssemblyInfo.cs
+F:\Shithin_Files\CashBook\CashBookLogger\obj\Debug\net6.0\Logger.csproj.CoreCompileInputs.cache
+F:\Shithin_Files\CashBook\CashBookLogger\obj\Debug\net6.0\Logger.dll
+F:\Shithin_Files\CashBook\CashBookLogger\obj\Debug\net6.0\refint\Logger.dll
+F:\Shithin_Files\CashBook\CashBookLogger\obj\Debug\net6.0\Logger.pdb
+F:\Shithin_Files\CashBook\CashBookLogger\obj\Debug\net6.0\ref\Logger.dll
