@@ -22,4 +22,15 @@ function validateAmount(openingBalanceInput) {
         return true; // Return true to allow form submission
     }
 }
+//Validation for Contra entry for Add/Update Transaction
+function ValidateContra() {
+    if (document.getElementById("type-transaction").value === "Contra") {
+        if (document.getElementById("paymentfromid-2-transaction").value === document.getElementById("paymenttoid-1-transaction").value) {
+            showToastDanger("Payment From and To should not be same");
+            return false;
+        }
+        return true;
+    }
+    return true; // Return false if the value is not "Contra"
+}   
 

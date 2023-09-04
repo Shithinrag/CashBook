@@ -39,7 +39,7 @@
             <div class="col-lg-6 grid-margin" id="root">
                 <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Add Transaction</h4>
+                    <h4 class="card-title" id="title-transaction">Add Transaction</h4>
                    <form id="add-transaction" action="/Transaction/Create" method="post">
                     @*@using (Html.BeginForm("Create", "Transaction", FormMethod.Post, new { enctype = "multipart/form-data"  }))*@                    
                         <div class="forms-sample">
@@ -68,11 +68,11 @@
 
                                 <div class="form-group col-md-6 categoryId-expense-transaction">
                                     <label for="">Category</label>
-                                    @Html.DropDownListFor(model => model.CategoryIdExpense, new SelectList(ViewBag.ExpenseCategories, "Value", "Text"), htmlAttributes: new { @class = "form-control" })
+                                    @Html.DropDownListFor(model => model.CategoryIdExpense, new SelectList(ViewBag.ExpenseCategories, "Value", "Text"), htmlAttributes: new { @class = "form-control", id="expense-category-transaction"})
                                 </div>
                                 <div class="form-group col-md-6 categoryId-income-transaction">
                                     <label for="">Category</label>
-                                    @Html.DropDownListFor(model => model.CategoryIdIncome, new SelectList(ViewBag.IncomeCategories, "Value", "Text"), htmlAttributes: new { @class = "form-control"})
+                                    @Html.DropDownListFor(model => model.CategoryIdIncome, new SelectList(ViewBag.IncomeCategories, "Value", "Text"), htmlAttributes: new { @class = "form-control" ,id="income-category-transaction"})
                                 </div>
 
                                 <div class="form-group col-md-6 nonContra">
@@ -144,30 +144,19 @@
                 $('.categoryId-expense-transaction').hide();
                 $('.categoryId-income-transaction').show();
                 break;
-            case "Expense":
-                $('.nonContra').show();
+            case "Expense":                
                 $('.contraPaymetOption').hide();
                 $('.categoryId-income-transaction').hide();
+                $('.nonContra').show();
                 $('.categoryId-expense-transaction').show();
+
     }
     });
 
     function ResetForm() {        
         document.getElementById('discription-trancsaction').value = "";
         document.getElementById('amount-transaction').value = "";  
-    }
-    //Validation for Contra entry for Add/Update Transaction
-    function ValidateContra() {
-        if (document.getElementById("type-transaction").value === "Contra") {
-            if (document.getElementById("paymentfromid-2-transaction").value === document.getElementById("paymenttoid-1-transaction").value){
-                showToastDanger("Payment From and To should not be same");                
-                return false;
-            }
-            return true;
-        }
-        return true; // Return false if the value is not "Contra"
     }   
-
 
 
     function EditTransaction(id) {
@@ -188,26 +177,36 @@
             .then(response => response.json())
             .then(data => {
                 // Process the response from the controller
-                //modelId = data.id;
-                    
-                    //CategoryIdExpense = allTransactions.CategoryId,
-                    //CategoryNameExpense = allTransactions.CategoryName,
-                    //PaymentFromIdSingle = allTransactions.PaymentFromId,
-                    //PaymentFromNameSingle = allTransactions.PaymentFromName,
-                    //PaymentToId = allTransactions.PaymentToId,
-                    //PaymentToName = allTransactions.PaymentToName,
-                    //Type = allTransactions.Type
+                //modelId = data.id;                 
                 document.getElementById('date1').value = data.date;                
                 document.getElementById('amount-transaction').value = data.amount;
                 document.getElementById('discription-trancsaction').value = data.description;
                 document.getElementById('type-transaction').value = data.type;
-                if(data.categotyid)
-                    document.getElementById('type-transaction').value = data.type;
-
-                debugger;
-                //document.getElementById('openingBalance').value = parseFloat(data.openingBalance);
-               // document.getElementById('isPerson').checked = data.isPerson === true;
-               // document.getElementById('isDelete').value = data.isDelete === true;
+                switch (data.type) {
+                    case "Contra":
+                        $('.nonContra').hide();
+                        $('.categoryId-expense-transaction').hide();
+                        $('.categoryId-income-transaction').hide();
+                        $('.contraPaymetOption').show();
+                        document.getElementById('paymentfromid-2-transaction').value = data.paymentFromIdSingle;
+                        document.getElementById('paymenttoid-1-transaction').value = data.paymentToId;
+                        break;
+                    case "Income":                        
+                        $('.contraPaymetOption').hide();
+                        $('.categoryId-expense-transaction').hide();
+                        $('.nonContra').show();
+                        $('.categoryId-income-transaction').show();
+                        document.getElementById('income-category-transaction').value = data.categoryIdExpense;
+                        document.getElementById('paymentfromid-1-transaction').value = data.paymentFromIdSingle;
+                        break;
+                    case "Expense":                        
+                        $('.contraPaymetOption').hide();
+                        $('.categoryId-income-transaction').hide();
+                        $('.nonContra').show();
+                        $('.categoryId-expense-transaction').show();
+                        document.getElementById('expense-category-transaction').value = data.categoryIdExpense;
+                        document.getElementById('paymentfromid-1-transaction').value = data.paymentFromIdSingle;
+                }                  
                 // Outputs "Model received successfully!"
             })
             .catch(error => {

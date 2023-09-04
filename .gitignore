@@ -2,4 +2,6 @@ CashBook/bin/
 CashBook/.vs/
 CashBook/obj/
 CashBookLogger/obj/
+CashBookLogger/bin/
 DataAccessLayer/obj/
+DataAccessLayer/bin/
