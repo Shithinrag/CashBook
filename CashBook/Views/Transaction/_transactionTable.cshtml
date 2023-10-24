@@ -1,0 +1,36 @@
+﻿<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">All Transactions</h4>
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="expense-tab" data-bs-toggle="tab" href="#expense-1" role="tab" aria-controls="expense-1" aria-selected="true">
+                    Expense
+                    @*<div class="badge badge-info badge-pill my-auto mx-2">@ViewBag.Expense</div>*@
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="income-tab" data-bs-toggle="tab" href="#income-1" role="tab" aria-controls="income-1" aria-selected="false">
+                    Income
+                    @*<div class="badge badge-info badge-pill my-auto mx-2">@ViewBag.Income</div>*@
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="contra-tab" data-bs-toggle="tab" href="#contra-1" role="tab" aria-controls="contra-1" aria-selected="false">
+                    Contra
+                    @*<div class="badge badge-info badge-pill my-auto mx-2">@ViewBag.Contra</div>*@
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade active show" id="expense-1" role="tabpanel" aria-labelledby="expense-tab">
+                @await Component.InvokeAsync("GetAllTransaction", new{type = "Expense"})
+            </div>
+            <div class="tab-pane fade" id="income-1" role="tabpanel" aria-labelledby="income-tab">
+                @await Component.InvokeAsync("GetAllTransaction", new{type = "Income"})
+            </div>
+            <div class="tab-pane fade" id="contra-1" role="tabpanel" aria-labelledby="contra-tab">
+                @await Component.InvokeAsync("GetAllTransaction", new{type = "Contra"})
+            </div>
+        </div>
+    </div>
+</div>

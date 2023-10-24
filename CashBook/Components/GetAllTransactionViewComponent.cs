@@ -17,6 +17,7 @@ namespace CashBook.Components
         public async Task<IViewComponentResult> InvokeAsync(string type)
         {
             IEnumerable<AllTransactions> transactions = _transactionRepository.GetAllTransaction(type);
+            //ViewData[$"{type}"]= transactions.Count();
             List<TransactionViewModel> transactionViewModels = new();                        
             foreach(var item in transactions)
             {

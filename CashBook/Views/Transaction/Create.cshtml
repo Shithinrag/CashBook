@@ -1,40 +1,11 @@
-﻿@model CashBook.ViewModels.TransactionViewModel
+﻿@model TransactionViewModel
 @{
-    ViewData["Title"] = "Transaction Page";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Transaction Page";    
 }
 <div class="content-wrapper">
         <div class="row">
             <div class="col-lg-6 grid-margin stretch-card" id="main">
-
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">All Transactions</h4>
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="expense-tab" data-bs-toggle="tab" href="#expense-1" role="tab" aria-controls="expense-1" aria-selected="true">Expense</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="income-tab" data-bs-toggle="tab" href="#income-1" role="tab" aria-controls="income-1" aria-selected="false">Income</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="contra-tab" data-bs-toggle="tab" href="#contra-1" role="tab" aria-controls="contra-1" aria-selected="false">Contra</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content">
-                        <div class="tab-pane fade active show" id="expense-1" role="tabpanel" aria-labelledby="expense-tab">
-                            @await Component.InvokeAsync("GetAllTransaction", new{type = "Expense"})
-                        </div>
-                        <div class="tab-pane fade" id="income-1" role="tabpanel" aria-labelledby="income-tab">
-                            @await Component.InvokeAsync("GetAllTransaction", new{type = "Income"})
-                        </div>
-                        <div class="tab-pane fade" id="contra-1" role="tabpanel" aria-labelledby="contra-tab">
-                            @await Component.InvokeAsync("GetAllTransaction", new{type = "Contra"})
-                        </div>
-                    </div>
-                </div>
-            </div>
-                            
+                @await Html.PartialAsync("_transactionTable")                            
             </div>
             <div class="col-lg-6 grid-margin" id="root">
                 <div class="card">
@@ -62,7 +33,7 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-6">
-                                    <label for="type-transaction">Transaction Type</label>
+                                    <label asp-for="Type">Transaction Type</label>
                                     @Html.DropDownListFor(model => model.Type, new SelectList(ViewBag.Type, "Value", "Text"), htmlAttributes: new { @class = "form-control" , id="type-transaction"})
                                 </div>
 

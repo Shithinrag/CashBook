@@ -1,19 +1,12 @@
 ﻿@{
-    ViewData["Title"] = "Dashboard Page";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Dashboard Page";    
 }
 <div class="content-wrapper">
     <div class="row">
         <div class="col-lg-6 grid-margin transparent" id="main">
             <div class="row">
                 <div class="col-md-6 mb-4 stretch-card transparent">
-                    <div class="card card-tale">
-                        <div class="card-body">
-                            <p class="mb-4">Today’s Bookings</p>
-                            <p class="fs-30 mb-2">4006</p>
-                            <p>10.00% (30 days)</p>
-                        </div>
-                    </div>
+                    @await Html.PartialAsync("_axisBank")
                 </div>
                 <div class="col-md-6 mb-4 stretch-card transparent">
                     <div class="card card-dark-blue">

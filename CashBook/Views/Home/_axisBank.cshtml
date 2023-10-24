@@ -1,0 +1,125 @@
+﻿<div class="container-bitcoin">
+	<div class="card">
+		<div class="card-header-bitcoin">
+			<div class="col col-left">				
+				<div class="description">
+					<img src="/images/axis.png" class="image-fluid axis" alt="100%x250">					
+				</div>
+			</div>
+			<div class="col col-right">	
+				<h2>&#8377;1200</h2>
+			</div>
+		</div>	
+		<div class="card-body">	
+			<div class="">
+				<img src="/images/chip.png" class="img-fluid chip" alt="Responsive image">
+			</div>
+			<div class="percent">
+				<span class="text">4225 **** **** ****</span>
+			</div>			
+			<div class="percent">
+				<div class="row">
+					<div class="col-sm">
+						<span class="text">Debit Card</span>
+					</div>
+					<div class="col-sm">
+						<span class="expiry">
+							<img src="/images/visa.png" class="image-fluid visa" alt="100%x250">
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="expiry">
+				
+			</div>
+		</div>
+	</div>
+</div>
+<style>
+	.container-bitcoin{
+		display:flex;
+		flex:1;
+		gap:32px;
+		max-width:450px;
+	}
+	.card {
+		display:flex;
+		flex-direction:column;
+		flex:1;
+		background-color:#262d47;
+		border-radius:16px;
+		color:#ffffff;		
+	}
+	.card .card-header-bitcoin{
+		display:flex;		
+		align-items:start;
+		justify-content:space-between;
+		flex:1;
+		padding:24px 24px 0 24px;
+	}	
+	.card-bitcoin .col-left{
+		display:flex;
+		align-items:center;		
+	}
+	.card-bitcoin .col-left .icon-container{
+		display: flex;
+		align-items: center;
+			justify-content: center;
+			background: linear-gradient(-225deg, #fdb135,#fa7b00);
+			height: 44px;
+			width: 44px;
+			margin-right: 8px;
+			border-radius: 12px;
+	}
+
+	.card-bitcoin .col-left .card-description h2 {
+		font-size: 16px;
+		font-weight: 400;
+		margin: 0;
+	}
+
+	.card-bitcoin .col-left .card-description h4 {
+		font-size: 12px;
+		font-weight: 300;
+		margin: 4px 0 0 0;
+	}
+
+	.card-bitcoin .col-right h2 {	
+
+		color:#ff9201;
+		font-size:16px;
+		font-weight:400;
+		margin:0;
+	}
+	.percent{
+		margin-top :10px;
+		margin-bottom:10px;
+	}
+	.visa{
+			max-width: 50%;
+	}
+	.chip{
+		max-width: 14%;
+	}
+	.axis{
+		max-width: 82%;
+	}
+	.expiry {
+		display:flex;
+		justify-content:end;		
+	}
+
+	.card-bitcoin .col-right .material-icons {
+		font-size: 16px;
+		margin-top:-2px;
+	}
+
+	.card-bitcoin .col-right .text {
+		font-size: 12px;
+		font-weight:300;
+		margin-left: 4px;
+	}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="~/js/bitCoin.js"></script>

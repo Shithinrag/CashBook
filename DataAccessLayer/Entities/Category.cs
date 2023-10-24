@@ -4,8 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace DataAccessLayer.Entities
 {
     public class Category
-    {
-     
+    {     
         public int Id { get; set; }
         [StringLength(20)]
         public string Name { get; set; } = "";

@@ -1,11 +1,11 @@
-﻿@model DataAccessLayer.Entities.Payment
+﻿@model Payment
 
 <div class="card" id="payment-div-card">
     <div class="card-body">
         <h4 class="card-title" id="title-payment">Add Payment method</h4>        
             <form class="forms-sample" id="CRUD-Payment">                
                 <div class="form-group ">
-                    @Html.LabelFor(m =>m.Name, "Name *")
+                <label asp-for="Name">Name *</label>
                     @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" , id="name", placeholder="Name"} })
                     <span id="name-error" class="text-danger"></span>
                 </div>

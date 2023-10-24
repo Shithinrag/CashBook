@@ -1,0 +1,112 @@
+﻿<div class="container">
+	<div class="card card-bitcoin">
+		<div class="card-header">
+			<div class="col col-left">
+				<div class="icon-container">
+					<span class="material-icons">currency_bitcoin</span>
+				</div>
+				<div class="description">
+					<h2>Bitcoins</h2>
+					<h4>BTC</h4>
+				</div>
+			</div>
+			<div class="col col-right">
+				<h2>$ 23</h2>
+				<div class="percent">
+					<span class="material-icons"></span>
+					<span class="text">>4.04%</span>
+				</div>
+			</div>
+		</div>
+	
+		<div class="card-body">
+			<div class="chart-container">
+				<canvas id="chart-bitcoin"></canvas>
+			</div>
+		</div>
+	</div>
+</div>
+<style>
+	.container{
+		display:flex;
+		flex:1;
+		gap:32px;
+		max-width:450px;
+	}
+	.card {
+		display:flex;
+		flex-direction:column;
+		flex:1;
+		background-color:#262d47;
+		border-radius:16px;
+		color:#ffffff;
+	}
+	.car .card-header{
+		display:flex;
+		align-items:start;
+		justify-content:space-between;
+		flex:1;
+		padding:24px 24px 0 24px;
+	}
+	.card .card-body .chart-container{
+		padding-top:16px;
+		height:180px;
+		border-bottom-left-radius:16px;
+		border-bottom-right-radius:16px;
+		overflow:hidden;
+	}
+	.card-bitcoin .col-left{
+		display:flex;
+		align-items:center;		
+	}
+	.card-bitcoin .col-left .icon-container{
+		display: flex;
+		align-items: center;
+			justify-content: center;
+			background: linear-gradient(-225deg, #fdb135,#fa7b00);
+			height: 44px;
+			width: 44px;
+			margin-right: 8px;
+			border-radius: 12px;
+	}
+
+	.card-bitcoin .col-left .card-description h2 {
+		font-size: 16px;
+		font-weight: 400;
+		margin: 0;
+	}
+
+	.card-bitcoin .col-left .card-description h4 {
+		font-size: 12px;
+		font-weight: 300;
+		margin: 4px 0 0 0;
+	}
+
+	.card-bitcoin .col-right h2 {
+		color:#ff9201;
+		font-size:16px;
+		font-weight:400;
+		margin:0;
+	}
+
+	.card-bitcoin .col-right .percent {
+		display:flex;
+		justify-content:end;
+		color:#ed3140;
+		margin-top:8px;
+	}
+
+	.card-bitcoin .col-right .material-icons {
+		font-size: 16px;
+		margin-top:-2px;
+	}
+
+	.card-bitcoin .col-right .text {
+		font-size: 12px;
+		font-weight:300;
+		margin-left: 4px;
+	}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="~/js/bitCoin.js"></script>

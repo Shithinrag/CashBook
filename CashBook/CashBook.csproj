@@ -52,4 +52,11 @@
     <Folder Include="Api\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\Home\_axisBank.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
